@@ -2,6 +2,10 @@
   <head>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.6/p5.js"></script>
+    <script
+  src="https://code.jquery.com/jquery-3.1.1.js"
+  integrity="sha256-16cdPddA6VdVInumRGo6IbivbERE8p7CQR3HzTBuELA="
+  crossorigin="anonymous"></script>
 
     <style>
       /* Always set the map height explicitly to define the size of the div
@@ -33,7 +37,37 @@
     <script>
       var map;
 
-      var url = 'http://donnees.ville.montreal.qc.ca/dataset/08f12925-c6b2-405f-bd01-744674d97bff/resource/11860f23-30c9-4221-ae00-a39af4684210/download/mtlwifi.json';
+      var url = "mtlwifi.json";
+
+      $.getJSON(url, function readData(data) {});
+
+
+
+      function readData(data)
+      {
+        console.log('reading data');
+        console.log();
+        $.getJSON(url, function readData(data) {});
+      }
+
+
+
+
+      // function preload() 
+      // {
+      //   console.log('trying to read json');
+
+      //   wifiData = JSON.parse(url.toString());
+      //   console.log('url loadJSON');
+
+      //   console.log(wifiData.features.geometry[1]);
+
+      // }
+
+      // function setup()
+      // {
+      //   noLoop();
+      // }
 
       function initMap() 
       {
@@ -45,7 +79,6 @@
           mapTypeId: 'hybrid'
         });
 
-        getJSON( url, function() {console.log( "success" );});
 
 
 
@@ -67,24 +100,31 @@
 
 
       }
+
+
+
       // Loop through the results array and place a marker for each
       // set of coordinates.
-      window.mtlwifi = function(results) 
-      {
-        console.log('code ran to here');
-        for (var i = 0; i < results.features.length; i++) 
-        {
-            var coords = results.features[i].geometry.coordinates;
-            var latLng = new google.maps.LatLng(coords[1],coords[0]);
-            var marker = new google.maps.Marker({
-              position: latLng,
-              map: map
-            });
+      // window.mtlwifi = function(results) 
+      // {
+      //   console.log('code ran to here');
+      //   for (var i = 0; i < results.features.length; i++) 
+      //   {
+      //       var coords = results.features[i].geometry.coordinates;
+      //       var latLng = new google.maps.LatLng(coords[1],coords[0]);
+      //       var marker = new google.maps.Marker({
+      //         position: latLng,
+      //         map: map
+      //       });
 
 
-            console.log(coords);
-        }
-      }
+      //       console.log(coords);
+      //   }
+      // }
+
+
+
+
     </script>
 
     <script async defer
