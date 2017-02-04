@@ -1,17 +1,17 @@
 <html>
-	<head>
+  <head>
 
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.6/p5.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.6/p5.js"></script>
 
-		<style>
+    <style>
       /* Always set the map height explicitly to define the size of the div
        * element that contains the map. */
       #map {
-        height: 80%;
-        width: 80%;
-        margin-left: 20px;
-        margin-right: 20px;
-        margin-top: 20px;
+        height: 90%;
+        width: 90%;
+        margin-left: 5%;
+        margin-right: 5%;
+        margin-top: 10%;
       }
       /* Optional: Makes the sample page fill the window. */
       html, body {
@@ -22,43 +22,56 @@
     </style>
 
 
-	</head>
+  </head>
 
 
 
 
-	<body>
+  <body>
 
-		<div id="map"></div>
+    <div id="map"></div>
     <script>
       var map;
+
+      var url = 'http://donnees.ville.montreal.qc.ca/dataset/08f12925-c6b2-405f-bd01-744674d97bff/resource/11860f23-30c9-4221-ae00-a39af4684210/download/mtlwifi.json';
+
       function initMap() 
       {
         map = new google.maps.Map(document.getElementById('map'), 
         {
           zoom: 10,
           center: new google.maps.LatLng(45.536810,-73.685850),
-
           // 45°30'6.81"N   73°33'58.50"W
           mapTypeId: 'hybrid'
         });
 
-        // Create a <script> tag and set the USGS URL as the source.
-        var script = document.createElement('script');
-        // This example uses a local copy of the GeoJSON stored at
-        // http://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/2.5_week.geojsonp
-        script.src = 'http://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/2.5_week.geojsonp';
-        document.getElementsByTagName('head')[0].appendChild(script);
+        getJSON( url, function() {console.log( "success" );});
 
-        //map.panTo({lat: 45.536810, lng: -73.685850});
-        //map.setZoom(10);
+
+
+        // // Create a <script> tag and set the USGS URL as the source.
+        // var script = document.createElement('script');
+        // // This example uses a local copy of the GeoJSON stored at
+        // // http://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/2.5_week.geojsonp
+        // script.src = 'http://donnees.ville.montreal.qc.ca/dataset/08f12925-c6b2-405f-bd01-744674d97bff/resource/11860f23-30c9-4221-ae00-a39af4684210/download/mtlwifi.json';
+
+        // console.log('script loaded');
+
+
+        // document.getElementsByTagName('features');
+        // //map.panTo({lat: 45.536810, lng: -73.685850});
+        // //map.setZoom(10);
+
+
+
+
 
       }
-
       // Loop through the results array and place a marker for each
       // set of coordinates.
-      window.eqfeed_callback = function(results) 
+      window.mtlwifi = function(results) 
       {
+        console.log('code ran to here');
         for (var i = 0; i < results.features.length; i++) 
         {
             var coords = results.features[i].geometry.coordinates;
@@ -67,10 +80,11 @@
               position: latLng,
               map: map
             });
+
+
+            console.log(coords);
         }
-
       }
-
     </script>
 
     <script async defer
@@ -79,7 +93,7 @@
 
 
 
-	</body>
+  </body>
 
 
 
