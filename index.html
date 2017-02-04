@@ -2,7 +2,19 @@
 	<head>
 
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.6/p5.js"></script>
-
+		<style>
+      /* Always set the map height explicitly to define the size of the div
+       * element that contains the map. */
+      #map {
+        height: 80%;
+      }
+      /* Optional: Makes the sample page fill the window. */
+      html, body {
+        height: 80%;
+        margin: 0;
+        padding: 0;
+      }
+    </style>
 
 
 	</head>
@@ -12,23 +24,41 @@
 
 	<body>
 
-		<script>
+		<div id="map"></div>
+    <script>
+      var map;
+      function initMap() {
+        map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 2,
+          center: new google.maps.LatLng(2.8,-187.3),
+          mapTypeId: 'terrain'
+        });
 
+        // Create a <script> tag and set the USGS URL as the source.
+        var script = document.createElement('script');
+        // This example uses a local copy of the GeoJSON stored at
+        // http://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/2.5_week.geojsonp
+        script.src = 'http://donnees.ville.montreal.qc.ca/dataset/08f12925-c6b2-405f-bd01-744674d97bff/resource/11860f23-30c9-4221-ae00-a39af4684210/download/mtlwifi.js';
+        document.getElementsByTagName('head')[0].appendChild(script);
+      }
 
-			function setup() 
-			{
- 				 createCanvas(640, 480);
-			}
+      // Loop through the results array and place a marker for each
+      // set of coordinates.
+      window.eqfeed_callback = function(results) {
+        for (var i = 0; i < results.features.length; i++) {
+          var coords = results.features[i].geometry.coordinates;
+          var latLng = new google.maps.LatLng(coords[1],coords[0]);
+          var marker = new google.maps.Marker({
+            position: latLng,
+            map: map
+          });
+        }
+      }
+    </script>
 
-			function draw() 
-			{
-  				
-  			} 
-
-
-
-
-		</script>
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBzutWzphfr56u9zGHoLgtYc0MDuZaLBhY&callback=initMap">
+    </script>
 
 
 
