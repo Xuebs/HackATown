@@ -2,10 +2,9 @@
   <head>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.6/p5.js"></script>
-    <script
-  src="https://code.jquery.com/jquery-3.1.1.js"
-  integrity="sha256-16cdPddA6VdVInumRGo6IbivbERE8p7CQR3HzTBuELA="
-  crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.1.1.js"
+            integrity="sha256-16cdPddA6VdVInumRGo6IbivbERE8p7CQR3HzTBuELA="
+            crossorigin="anonymous"></script>
 
     <style>
       /* Always set the map height explicitly to define the size of the div
@@ -39,16 +38,19 @@
 
       var url = "mtlwifi.json";
 
-      $.getJSON(url, function readData(data) {});
 
-
-
-      function readData(data)
+      function readData()
       {
         console.log('reading data');
-        console.log();
-        $.getJSON(url, function readData(data) {});
+        $.getJSON(url, parseData);
+
+      }  
+
+      function parseData(data){
+          console.log(data);
       }
+
+      readData();
 
 
 
@@ -103,8 +105,8 @@
 
 
 
-      // Loop through the results array and place a marker for each
-      // set of coordinates.
+      // // Loop through the results array and place a marker for each
+      // // set of coordinates.
       // window.mtlwifi = function(results) 
       // {
       //   console.log('code ran to here');
