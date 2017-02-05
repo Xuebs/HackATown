@@ -44,7 +44,8 @@
         $.getJSON(url, parseData);
       }  
 
-      function parseData(data){
+      function parseData(data)
+      {
           //console.log(data);
           console.log('data succesfully read');
 
@@ -105,8 +106,8 @@
       {
         map = new google.maps.Map(document.getElementById('map'), 
         {
-          zoom: 10,
-          center: new google.maps.LatLng(45.536810,-73.685850),
+          zoom: 15,
+          center: new google.maps.LatLng(45.504010,-73.555850),
           // 45°30'6.81"N   73°33'58.50"W
           mapTypeId: 'hybrid'
         });
