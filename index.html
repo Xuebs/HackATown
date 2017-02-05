@@ -41,13 +41,43 @@
 
       function readData()
       {
-        console.log('reading data');
         $.getJSON(url, parseData);
-
       }  
 
       function parseData(data){
-          console.log(data);
+          //console.log(data);
+          console.log('data succesfully read');
+
+          var i, j;
+
+          for(i= 0; i < data.features.length; i++)
+          {
+            //console.log(data.features[i].geometry.coordinates[1]);
+            var coords = data.features[i].geometry.coordinates[1];
+            var latLng = new google.maps.LatLng(coords[1],coords[0]);
+            var marker = new google.maps.Marker({
+              position: latLng,
+              map: map
+            });
+
+          }
+
+          console.log('a total of ' + i + ' markers have been added');
+
+          for(var j= 0; j < data.features.length; j++)
+          {
+            //console.log(data.features[i].geometry.coordinates[0]);
+            var coords = data.features[j].geometry.coordinates[0];
+            var latLng = new google.maps.LatLng(coords[1],coords[0]);
+            var marker = new google.maps.Marker({
+              position: latLng,
+              map: map
+            });
+
+          }
+          console.log('a total of ' + j + ' markers have been added');
+
+
       }
 
       readData();
