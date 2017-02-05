@@ -45,11 +45,21 @@
 
       var url = "mtlwifi.json";
 
-      var ilesansfil = "ilesansfil.json"
+      var ilesansfil = "ilesansfil.json";
 
-      var timhortons = "TimHortons.json"
+      var timhortons = "TimHortons.json";
 
-      var freeWifi = "WifiShort.json"
+      var freeWifi = "WifiShort.json";
+
+      var mtlwifiimage = "mtlwifi.png";
+
+      var ilesansfilimage = "ilesansfil.png";
+
+      var timhortonsimage = "timhortons.png";
+
+      var commerceimage = "commerce.png";
+
+
 
 
 
@@ -77,26 +87,28 @@
             //console.log(data.features[i].geometry.coordinates[1]);
             var coords = data.features[i].geometry.coordinates[1];
             var latLng = new google.maps.LatLng(coords[1],coords[0]);
-            // var marker = new google.maps.Marker({
-            //   position: latLng,
-            //   map: map
-            // });
+            var marker = new google.maps.Marker({
+              position: latLng,
+              map: map,
+              icon: mtlwifiimage
+            });
 
           }
 
          console.log(i + " MTL Wifi markers placed, watch out for google map api's 2500 request per day");
 
-          for(j= 0; j < data.features.length; j++)
-          {
-            //console.log(data.features[i].geometry.coordinates[0]);
-            var coords = data.features[j].geometry.coordinates[0];
-            var latLng = new google.maps.LatLng(coords[1],coords[0]);
-            // var marker = new google.maps.Marker({
-            //   position: latLng,
-            //   map: map
-            // });
+          // for(j= 0; j < data.features.length; j++)
+          // {
+          //   //console.log(data.features[i].geometry.coordinates[0]);
+          //   var coords = data.features[j].geometry.coordinates[0];
+          //   var latLng = new google.maps.LatLng(coords[1],coords[0]);
+          //   var marker = new google.maps.Marker({
+          //     position: latLng,
+          //     map: map
+          //     icon: mtlwifiimage
+          //   });
 
-          }
+          // }
           //console.log('a total of ' + j + ' markers have been added');
 
 
@@ -113,10 +125,11 @@
           var coords_lati = data[i].latitude;
           var coords_long = data[i].longitude;
           var latLng = new google.maps.LatLng(coords_lati,coords_long);
-          // var marker = new google.maps.Marker({
-          //     position: latLng,
-          //     map: map
-          //   });
+          var marker = new google.maps.Marker({
+              position: latLng,
+              map: map,
+              icon: ilesansfilimage
+            });
         }
 
         console.log(i + " Ile Sans Fil markers placed, watch out for google map api's 2500 request per day");
@@ -143,11 +156,12 @@
 
               markerCount++;
                 
-              // var latLng = new google.maps.LatLng(coords_lati,coords_long);
-              // var marker = new google.maps.Marker({
-              // position: latLng,
-              // map: map
-              //   });
+              var latLng = new google.maps.LatLng(coords_lati,coords_long);
+              var marker = new google.maps.Marker({
+              position: latLng,
+              map: map,
+              icon: timhortonsimage
+                });
             }
           }
         }
@@ -175,11 +189,13 @@
 
               markerCount++;
                 
-              // var latLng = new google.maps.LatLng(coords_lati,coords_long);
-              // var marker = new google.maps.Marker({
-              // position: latLng,
-              // map: map
-              //   });
+              var latLng = new google.maps.LatLng(coords_lati,coords_long);
+              var marker = new google.maps.Marker({
+              position: latLng,
+              map: map,
+              icon: commerceimage
+
+                });
             }
           }
         }
