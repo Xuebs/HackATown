@@ -40,43 +40,50 @@
 
       var ilesansfil = "ilesansfil.json"
 
+      var timhortons = "TimHortons.json"
+
+
+
 
       function readData()
       {
         $.getJSON(url, parseData);
         $.getJSON(ilesansfil, parseDataIle);
-      }  
+        $.getJSON(timhortons, parseTim);
+      }
 
       function parseData(data)
       {
+
           //console.log(data);
           //console.log('data succesfully read');
 
-          var i, j;
+          var i
+          var j;
 
           for(i= 0; i < data.features.length; i++)
           {
             //console.log(data.features[i].geometry.coordinates[1]);
             var coords = data.features[i].geometry.coordinates[1];
             var latLng = new google.maps.LatLng(coords[1],coords[0]);
-            var marker = new google.maps.Marker({
-              position: latLng,
-              map: map
-            });
+            // var marker = new google.maps.Marker({
+            //   position: latLng,
+            //   map: map
+            // });
 
           }
 
           //console.log('a total of ' + i + ' markers have been added');
 
-          for(var j= 0; j < data.features.length; j++)
+          for(j= 0; j < data.features.length; j++)
           {
             //console.log(data.features[i].geometry.coordinates[0]);
             var coords = data.features[j].geometry.coordinates[0];
             var latLng = new google.maps.LatLng(coords[1],coords[0]);
-            var marker = new google.maps.Marker({
-              position: latLng,
-              map: map
-            });
+            // var marker = new google.maps.Marker({
+            //   position: latLng,
+            //   map: map
+            // });
 
           }
           //console.log('a total of ' + j + ' markers have been added');
@@ -93,11 +100,43 @@
           var coords_lati = data[i].latitude;
           var coords_long = data[i].longitude;
           var latLng = new google.maps.LatLng(coords_lati,coords_long);
-          var marker = new google.maps.Marker({
+          // var marker = new google.maps.Marker({
+          //     position: latLng,
+          //     map: map
+          //   });
+        }
+      }
+
+      function parseTim(data)
+      {
+        console.log("parsing tim hortons data");
+        console.log(data[1].FIELD1);
+
+        var markerCount = 0;
+
+        //actual tim hortons entries count = 3792
+        for(var i = 3000 ; i < 3300 ; i++)
+        {
+          if (data[i].FIELD2 > 45.38 && data[i].FIELD2 < 45.65)
+          {
+            if (data[i].FIELD1 > -74 && data[i].FIELD1 < -73.5)
+            {
+              var coords_lati = data[i].FIELD2;
+              var coords_long = data[i].FIELD1;
+
+              markerCount++;
+                
+              var latLng = new google.maps.LatLng(coords_lati,coords_long);
+              var marker = new google.maps.Marker({
               position: latLng,
               map: map
-            });
+                });
+            }
+          }
         }
+
+        console.log(markerCount + " tim hortons markers placed, watch out for google map api's 2500 request per day")
+
       }
 
       readData();
@@ -180,7 +219,7 @@
     </script>
 
     <script async defer
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBzutWzphfr56u9zGHoLgtYc0MDuZaLBhY&callback=initMap">
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBq1If2512KmyM-kqXefbm7_zFQjUdolPw&callback=initMap">
     </script>
 
 
